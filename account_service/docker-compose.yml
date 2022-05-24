@@ -1,0 +1,46 @@
+
+version: '3.8'
+services:
+  db:
+    container_name: account_pg_db
+    image: postgres:12.2
+    restart: always
+    environment:
+      POSTGRES_DB: account_db
+      POSTGRES_USER: noksoft_dev
+      POSTGRES_PASSWORD: N0Ksoft2022
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  account_pg_admin:
+    container_name: account_pg_admin
+    image: dpage/pgadmin4:4.18
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: noksoft_dev@noksoft.com
+      PGADMIN_DEFAULT_PASSWORD: N0Ksoft2022
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8888:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    links:
+      - "db:pgsql-server"
+  account_service:
+    build:
+      context: .
+      dockerfile: ./account_service/Dockerfile/go-dev.Dockerfile
+    container_name: account_service
+    volumes:
+      - './account_service/server:/app'
+    working_dir: /app
+    links:
+      - "db:pgsql-server"
+volumes:
+  db-data:
+  pgadmin-data:
+networks:
+  postgres:
+    driver: bridge

@@ -1,0 +1,5 @@
+app:
+  port: 8000
+kafka:
+  servers:
+    - 172.17.0.1:9092

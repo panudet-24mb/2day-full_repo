@@ -1,0 +1,16 @@
+
+version: '3.8'
+services:
+      
+  api:
+    #hostname: api.account_gateway.com
+    build:
+      context: .
+      dockerfile: ./account_gateway/Dockerfile/go-dev.Dockerfile
+    container_name: account_gateway
+    volumes:
+      - './account_gateway/server:/app'
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    #network_mode: "host"
