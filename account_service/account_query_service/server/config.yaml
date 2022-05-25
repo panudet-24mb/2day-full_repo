@@ -1,0 +1,12 @@
+db:
+  host: "pgsql-server"
+  user: "noksoft_dev"
+  password: "N0Ksoft2022"
+  dbname: "account_db"
+  port: 5432
+  sslmode: disable 
+  timezone: "Asia/Bangkok"
+kafka:
+  servers:
+    - 172.17.0.1:9092
+  group: accountConsumer

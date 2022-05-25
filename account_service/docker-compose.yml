@@ -38,6 +38,16 @@ services:
     working_dir: /app
     links:
       - "db:pgsql-server"
+  account_query_service:
+    build:
+      context: .
+      dockerfile: ./account_query_service/Dockerfile/go-dev.Dockerfile
+    container_name: account_query_service
+    volumes:
+      - './account_query_service/server:/app'
+    working_dir: /app
+    links:
+      - "db:pgsql-server"
 volumes:
   db-data:
   pgadmin-data:
